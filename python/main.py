@@ -14,6 +14,9 @@ CONSONANTS = (
 
 
 def gadizate_word(word):
+    if word.isdigit():
+        return 'BÉEEE'
+
     mu_word = list()
 
     last_mu_letter = ''
@@ -24,10 +27,10 @@ def gadizate_word(word):
             mu_letter = 'U'
         elif letter in CONSONANTS:
             mu_letter = 'M'
-        elif letter in ('.', ',', ':', ';', '!', '?'):
-            mu_letter = 'U-ió{}'.format(letter)
         else:
-            mu_letter = 'BEH'
+            mu_letter = 'Ú-ÍIIÓOOO'
+            if letter in ('.', ',', ':', ';', '!', '?'):
+                mu_letter = '{}{}'.format(mu_letter, letter)
 
         last_mu_letter = mu_letter
         mu_word.append(mu_letter)
@@ -39,7 +42,7 @@ def gadizate_word(word):
             mu_word.append('U')
 
     if (len(mu_word) > 2) and (mu_word[-1] == mu_word[-2] == 'U'):
-        mu_word.append('H')
+        mu_word[-1] = 'Ú'
 
     mu_word = ''.join(mu_word)
     return mu_word
