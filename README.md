@@ -2,6 +2,10 @@
 
 *Translate bolsonaristas' sentences to "mu lang".*
 
+- twitter: @gadutor
+
+## Running
+
 ```
 $ python3 python/main.py "<YOUR_SENTENCE_HERE>"
 ```

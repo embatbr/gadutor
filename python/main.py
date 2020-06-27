@@ -9,30 +9,48 @@ VOWELS = (
 )
 CONSONANTS = (
     'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S',
-    'T', 'V', 'W', 'X', 'Y', 'Z'
+    'T', 'V', 'W', 'X', 'Y', 'Z',
+    'Ç'
 )
 
 
 def gadizate_word(word):
-    if word.isdigit():
-        return 'BÉEEE'
-
     mu_word = list()
 
     last_mu_letter = ''
-    for letter in word:
+    had_symbol_last_time = False
+
+    size = len(word)
+    for i in range(size):
+        letter = word[i]
+
         mu_letter = letter
 
-        if (letter in VOWELS) or (letter in CONSONANTS and last_mu_letter == 'M'):
+        if letter in VOWELS:
             mu_letter = 'U'
+            had_symbol_last_time = False
+
         elif letter in CONSONANTS:
-            mu_letter = 'M'
+            if last_mu_letter == 'M':
+                mu_letter = 'U'
+            elif i == (size - 1):
+                mu_letter = 'MÚ'
+            else:
+                mu_letter = 'M'
+
+            had_symbol_last_time = False
+
+        elif letter in ('.', ',', ':', ';', '!', '?'):
+            if not had_symbol_last_time:
+                mu_letter = 'UH{}'.format(letter)
+                had_symbol_last_time = True
+
         else:
-            mu_letter = 'Ú-ÍIIÓOOO'
-            if letter in ('.', ',', ':', ';', '!', '?'):
-                mu_letter = '{}{}'.format(mu_letter, letter)
+            mu_letter = 'MUH'
+            had_symbol_last_time = False
 
         last_mu_letter = mu_letter
+
         mu_word.append(mu_letter)
 
     if mu_word:
@@ -42,7 +60,7 @@ def gadizate_word(word):
             mu_word.append('U')
 
     if (len(mu_word) > 2) and (mu_word[-1] == mu_word[-2] == 'U'):
-        mu_word[-1] = 'Ú'
+        mu_word[-1] = 'UH'
 
     mu_word = ''.join(mu_word)
     return mu_word
@@ -66,18 +84,8 @@ def gadizate_sentence(sentence):
     return mu_sentence
 
 
-def powered_by(sentence):
-    mu_sentence = gadizate_sentence(sentence)
-
-    print('"{}"\n\nem gadês:\n\n"{}"'.format(sentence, mu_sentence))
-
-
 if __name__ == '__main__':
-    import sys
+    sentence = input('> ').strip()
 
-    args = sys.argv[1:]
-
-    sentence = 'MELHOR PRESIDENTE QUE O BRASIL JÁ TEVE!'
-    sentence = args[0]
-
-    powered_by(sentence)
+    mu_sentence = gadizate_sentence(sentence)
+    print(mu_sentence)
