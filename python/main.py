@@ -1,68 +1,61 @@
 # -*- coding: utf-8 -*-
 
-VOWELS = (
-    'A','Á','À','Ã','Â',
-    'E','É','È','Ẽ','Ê',
-    'I','Í','Ì','Ĩ','Î',
-    'O','Ó','Ò','Õ','Ô',
-    'U','Ú','Ù','Ũ','Û'
-)
-CONSONANTS = (
-    'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S',
-    'T', 'V', 'W', 'X', 'Y', 'Z',
-    'Ç'
-)
+VOWELS = 'AÁÀÃÂEÉÈẼÊIÍÌĨÎOÓÒÕÔUÚÙŨÛ'
+CONSONANTS = 'BCÇDFGHJKLMNPQRSTVWXYZ'
+ALPHABET = f'{VOWELS}{CONSONANTS}'
+
+MU_FACTOR = 3
+
+
+def return_symbols(mu_word, word, size, num_vowels, num_consonants):
+    if size > (num_vowels + num_consonants):
+        left = 0
+        right = size - 1
+        search_left = search_right = True
+        while (left < right) and (search_left or search_right):
+            if word[left].upper() not in ALPHABET:
+                left = left + 1
+            else:
+                search_left = False
+
+            if word[right].upper() in ALPHABET:
+                search_right = False
+            else:
+                right = right - 1
+
+        word_left = word[:left]
+        word_right = word[right+1:]
+
+        return '{}{}{}'.format(word_left, mu_word, word_right)
+
+    return mu_word
 
 
 def gadizate_word(word):
-    mu_word = list()
-
-    last_mu_letter = ''
-    had_symbol_last_time = False
-
     size = len(word)
-    for i in range(size):
-        letter = word[i]
+    num_vowels = len([w for w in word if w.upper() in VOWELS])
+    num_consonants = len([w for w in word if w.upper() in CONSONANTS])
 
-        mu_letter = letter
+    if (size > 1) and (word[0] in '@#'):
+        return word
 
-        if letter in VOWELS:
-            mu_letter = 'U'
-            had_symbol_last_time = False
+    if num_vowels == num_consonants == 0:
+        return word
 
-        elif letter in CONSONANTS:
-            if last_mu_letter == 'M':
-                mu_letter = 'U'
-            elif i == (size - 1):
-                mu_letter = 'MÚ'
-            else:
-                mu_letter = 'M'
+    mu_word = 'mu'
+    if num_vowels > num_consonants:
+        mu_word = '{}u'.format(mu_word)
 
-            had_symbol_last_time = False
+    factor = max(size // MU_FACTOR, 1)
+    mu_word = mu_word * factor
 
-        elif letter in ('.', ',', ':', ';', '!', '?'):
-            if not had_symbol_last_time:
-                mu_letter = 'UH{}'.format(letter)
-                had_symbol_last_time = True
+    if word.isupper():
+        mu_word = mu_word.upper()
+    elif word[0].isupper():
+        mu_word = '{}{}'.format(mu_word[0].upper(), mu_word[1:])
 
-        else:
-            mu_letter = 'MUH'
-            had_symbol_last_time = False
+    mu_word = return_symbols(mu_word, word, size, num_vowels, num_consonants)
 
-        last_mu_letter = mu_letter
-
-        mu_word.append(mu_letter)
-
-    if mu_word:
-        if mu_word[0] == 'U':
-            mu_word.insert(0, 'M')
-        elif mu_word[-1] == 'M':
-            mu_word.append('U')
-
-    if (len(mu_word) > 2) and (mu_word[-1] == mu_word[-2] == 'U'):
-        mu_word[-1] = 'UH'
-
-    mu_word = ''.join(mu_word)
     return mu_word
 
 
@@ -70,14 +63,14 @@ def gadizate_words(words):
     mu_words = list()
 
     for word in words:
-        mu_word = gadizate_word(word)
+        mu_word = gadizate_word(word.strip())
         mu_words.append(mu_word)
 
     return mu_words
 
 
 def gadizate_sentence(sentence):
-    words = sentence.upper().split(' ')
+    words = sentence.split(' ')
     mu_words = gadizate_words(words)
     mu_sentence = ' '.join(mu_words)
 
@@ -86,6 +79,6 @@ def gadizate_sentence(sentence):
 
 if __name__ == '__main__':
     sentence = input('> ').strip()
-
     mu_sentence = gadizate_sentence(sentence)
+
     print(mu_sentence)
