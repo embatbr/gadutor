@@ -6,35 +6,11 @@
 
 ## Running
 
-```
-$ python3 python/main.py "<YOUR_SENTENCE_HERE>"
-```
-
-Examples:
+Fill the file *input.txt* in package *python*, do
 
 ```
-$ python3 python/main.py "Já verificaram se ele é virgem também? Maricotinhas do blog de 3 linhas."
-"Já verificaram se ele é virgem também? Maricotinhas do blog de 3 linhas."
-
-em gadês:
-
-"MU MUMUMUMUMUMU MU MUMU MU MUMUUMU MUMUUMÚ-ÍIIÓOOO? MUMUMUMUMUUMU MU MUUMU MU BÉEEE MUMUUMÚ-ÍIIÓOOO."
+$ cd python
+$ python3 gadizator.py
 ```
 
-```
-$ python python/main.py "MELHOR PRESIDENTE QUE O BRASIL JÁ TEVE!"
-"MELHOR PRESIDENTE QUE O BRASIL JÁ TEVE!"
-
-em gadês:
-
-"MUMUUMU MUUMUMUMUÚ MUÚ MU MUUMUMU MU MUMUÚ-ÍIIÓOOO!"
-```
-
-```
-$ python python/main.py "Bom era o Haddad né ANTAgonista"
-"Bom era o Haddad né ANTAgonista"
-
-em gadês:
-
-"MUMU MUMU MU MUMUUMU MU MUMUUMUMUMUÚ"
-```
+and get the translation from file *output.txt*.
