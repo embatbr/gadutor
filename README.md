@@ -12,12 +12,18 @@
 Fill the file *input.txt* in package *python*, do
 
 ```
-$ cd python
-$ python3 gadizator.py
+$ workon gadutor
+$ cd gadutor
+$ python gadizator.py
 ```
 
 and get the translation from file *output.txt*.
 
 ### Bot
+
+```
+$ workon gadutor
+$ ./run-bot.sh
+```
 
 Credentials are set [here](https://developer.twitter.com).
