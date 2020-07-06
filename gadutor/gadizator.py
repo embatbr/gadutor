@@ -96,14 +96,18 @@ def gadizate_sentence(sentence):
     return mu_sentence
 
 
+def run(text):
+    mu_sentences = list()
+
+    for sentence in text.split('\n'):
+        mu_sentence = gadizate_sentence(sentence)
+        mu_sentences.append(mu_sentence)
+
+    return '\n'.join(mu_sentences)
+
+
 if __name__ == '__main__':
     with open('input.txt') as infile:
-        mu_sentences = list()
-
-        for sentence in infile.readlines():
-            mu_sentence = gadizate_sentence(sentence)
-            mu_sentences.append(mu_sentence)
-
-        mu_sentences = '\n'.join(mu_sentences)
+        mu_sentences = run(infile.read())
         with open('output.txt', 'w') as outfile:
             outfile.write(mu_sentences)
