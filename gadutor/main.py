@@ -3,13 +3,17 @@
 import sys
 
 import bots
-from gadizator import run as gadizator_run
+import functions
 
 
 if __name__ == '__main__':
     args = sys.argv[1:]
 
     botname = args[0]
+    funcname = args[1]
 
     botmodule = getattr(bots, botname)
-    botmodule.main(gadizator_run)
+    funcmodule = getattr(functions, funcname)
+    run_function = getattr(funcmodule, 'run')
+
+    botmodule.main(run_function)

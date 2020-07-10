@@ -31,7 +31,7 @@ def return_symbols(simple_mu_word, simple_word, size, num_vowels, num_consonants
     return simple_mu_word
 
 
-def gadizate_simple_world(simple_word):
+def translate_simple_world(simple_word):
     size = len(simple_word)
     num_vowels = len([w for w in simple_word if w.upper() in VOWELS])
     num_consonants = len([w for w in simple_word if w.upper() in CONSONANTS])
@@ -53,7 +53,7 @@ def gadizate_simple_world(simple_word):
     return simple_mu_word
 
 
-def gadizate_word(word):
+def translate_word(word):
     size = len(word)
     num_vowels = len([w for w in word if w.upper() in VOWELS])
     num_consonants = len([w for w in word if w.upper() in CONSONANTS])
@@ -70,7 +70,7 @@ def gadizate_word(word):
     for simple_word in simple_words:
         simple_word = simple_word.strip()
         if simple_word:
-            simple_mu_word = gadizate_simple_world(simple_word.strip())
+            simple_mu_word = translate_simple_world(simple_word.strip())
             mu_word.append(simple_mu_word)
 
     mu_word = '-'.join(mu_word)
@@ -78,19 +78,19 @@ def gadizate_word(word):
     return mu_word
 
 
-def gadizate_words(words):
+def translate_words(words):
     mu_words = list()
 
     for word in words:
-        mu_word = gadizate_word(word.strip())
+        mu_word = translate_word(word.strip())
         mu_words.append(mu_word)
 
     return mu_words
 
 
-def gadizate_sentence(sentence):
+def translate_sentence(sentence):
     words = sentence.split(' ')
-    mu_words = gadizate_words(words)
+    mu_words = translate_words(words)
     mu_sentence = ' '.join(mu_words)
 
     return mu_sentence
@@ -100,14 +100,14 @@ def run(text):
     mu_sentences = list()
 
     for sentence in text.split('\n'):
-        mu_sentence = gadizate_sentence(sentence)
+        mu_sentence = translate_sentence(sentence)
         mu_sentences.append(mu_sentence)
 
     return '\n'.join(mu_sentences)
 
 
 if __name__ == '__main__':
-    with open('input.txt') as infile:
+    with open('../../cmd-ctrl/input.txt') as infile:
         mu_sentences = run(infile.read())
-        with open('output.txt', 'w') as outfile:
+        with open('../../cmd-ctrl/output.txt', 'w') as outfile:
             outfile.write(mu_sentences)
