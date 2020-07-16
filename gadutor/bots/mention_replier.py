@@ -30,6 +30,9 @@ def check_mentions(api, command, since_id, run_function):
 
         text_words = tweet.text.strip().split()
 
+        if config.MENTION_ME not in text_words:
+            continue
+
         mention_index = text_words.index(config.MENTION_ME)
         command_index = mention_index + 1
 
