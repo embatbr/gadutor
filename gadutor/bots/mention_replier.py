@@ -79,7 +79,7 @@ def main(run_function):
 
     while True:
         logger.info("since_id: %s" % since_id)
-        since_id = check_mentions(api, 'traduzir', since_id, run_function)
+        since_id = check_mentions(api, 'legendar', since_id, run_function)
 
         with open(since_ctrl_filepath, 'w') as file:
             file.write(str(since_id))

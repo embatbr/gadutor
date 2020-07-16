@@ -58,7 +58,7 @@ def translate_word(word):
     num_vowels = len([w for w in word if w.upper() in VOWELS])
     num_consonants = len([w for w in word if w.upper() in CONSONANTS])
 
-    if (size > 1) and (word[0] in '@#'):
+    if (size > 1) and ((word[0] in '@#') or (word.startswith('http://')) or (word.startswith('https://'))):
         return word
 
     if num_vowels == num_consonants == 0:
